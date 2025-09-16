@@ -1,0 +1,13 @@
+.shortLogo {
+  fill: var(--short-logo-color);
+}
+
+.fullLogo {
+  & path:first-child {
+    fill: var(--logo-first-color);
+  }
+
+  & path:not(:first-child) {
+    fill: var(--short-logo-color);
+  }
+}

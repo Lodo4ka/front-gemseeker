@@ -1,0 +1,22 @@
+
+.live_dot > * {
+  color: var(--color-red);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.custom_scrollbar {
+  scrollbar-width: none;
+}
+
+.nsfw[class] {
+  color: oklch(62.7% .265 303.9);
+}

@@ -1,0 +1,211 @@
+@import 'tailwindcss';
+
+@theme {
+  --breakpoint-xs: 520px;
+  --breakpoint-s: 410px;
+  --breakpoint-2xs: 360px;
+  --breakpoint-2lg: 824px;
+  --color-*: initial;
+  --color-primary: #ffffff;
+  --color-secondary: #7d8497;
+  --color-gray: #646b7d;
+  --color-skeleton: #2c3242;
+  --color-bg: #11141b;
+  --color-nsfw: oklch(62.7% 0.265 303.9);
+  --color-darkGray-1: #1a1e28;
+  --color-darkGray-2: #2c3242;
+  --color-darkGray-3: #222835;
+  --color-separator: #2e3547;
+  --color-darkGreen: #293f47;
+  --color-darkRed: #432834;
+  --color-btn-darkGreen: #0c3630;
+  --color-btn-darkGreen-hover: #13534a;
+  --color-btn-darkRed: #4a1322;
+  --color-btn-darkRed-hover: #6e1c32;
+  --color-btn-green: #00a87b;
+  --color-yellow: #fbbf24;
+  --color-lightYellow: #fcd56e;
+  --color-darkYellow: #2c271c;
+  --color-green: #34d399;
+  --color-red: #fe3957;
+  --color-blue: #3772ff;
+  --color-accent: linear-gradient(90deg, #fbbf24 10.29%, #fcd05f 51.84%, #fbbf24 88.92%);
+  --color-darkBlue: #1e3a8a;
+  --color-yellowGradient: linear-gradient(
+    90deg,
+    #f59e0b 0%,
+    #fbbf24 15%,
+    #fcd34d 30%,
+    #fbbf24 45%,
+    #f59e0b 60%,
+    #fcd34d 75%,
+    #fbbf24 90%,
+    #f59e0b 100%
+  );
+  --color-gray-gradient: rgba(163, 177, 183, 1);
+  --color-gray-profile: #1f2532;
+
+  --color-green-gradient-dark-left:
+    radial-gradient(circle at left, rgba(52, 211, 153, 0.25) 0%, rgb(26, 30, 40) 35%), var(--color-darkGray-1);
+  --color-red-gradient-dark-left:
+    radial-gradient(circle at left, rgba(254, 57, 87, 0.25) 0%, rgb(26, 30, 40) 35%), var(--color-darkGray-1);
+
+  --color-green-gradient:
+    radial-gradient(circle at right, rgba(52, 211, 153, 0.4) 0%, rgb(44, 50, 66) 60%), var(--color-darkGray-2);
+  --color-red-gradient:
+    radial-gradient(circle at right, rgba(254, 57, 87, 0.4) 0%, rgb(44, 50, 66) 60%), var(--color-darkGray-2);
+  --color-blue-gradient:
+    radial-gradient(circle at right, rgba(55, 114, 255, 0.4) 0%, rgb(44, 50, 66) 60%), var(--color-darkGray-2);
+  --color-green-gradient-dark:
+    radial-gradient(circle at right, rgba(52, 211, 153, 0.25) 0%, rgb(26, 30, 40) 35%), var(--color-darkGray-1);
+  --color-red-gradient-dark:
+    radial-gradient(circle at right, rgba(254, 57, 87, 0.25) 0%, rgb(26, 30, 40) 35%), var(--color-darkGray-1);
+  --color-blue-gradient-dark:
+    radial-gradient(circle at right, rgba(55, 114, 255, 0.25) 0%, rgb(26, 30, 40) 35%), var(--color-darkGray-1);
+  --color-gold-gradient-dark:
+    radial-gradient(circle at right, rgba(251, 191, 36, 0.25) 0%, rgb(26, 30, 40) 35%), var(--color-darkGray-1);
+  --color-purple-gradient-dark:
+    radial-gradient(circle at right, rgba(173, 70, 255, 0.25) 0%, rgb(26, 30, 40) 35%), var(--color-darkGray-1);
+
+  --border-sm: 0.5px;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+/* Works on Firefox */
+* {
+  scrollbar-color: var(--color-darkGray-2) transparent;
+}
+
+input:focus,
+textarea:focus {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-darkGray-2);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-darkGray-2);
+  border-radius: 20px;
+  border: 3px solid var(--color-darkGray-2);
+}
+*::-webkit-scrollbar-button {
+  display: none;
+  opacity: 0;
+}
+
+.Toastify__toast--info[class] {
+  background: var(--color-blue-gradient);
+}
+.Toastify__toast--success[class] {
+  background: var(--color-green-gradient);
+}
+.Toastify__toast--warning[class] {
+  background: var(--color-red-gradient);
+  /* тут нету стилей пока что */
+}
+.Toastify__toast--error[class] {
+  background: var(--color-red-gradient);
+}
+.Toastify__toast-theme--light,
+.Toastify__toast-theme--colored.Toastify__toast--default {
+  background: var(--color-darkGray-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-primary);
+  z-index: 1000;
+  padding: 12px;
+  width: auto;
+  min-height: auto;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.3);
+}
+
+.Toastify__toast-icon {
+  margin: 0;
+}
+.Toastify {
+  z-index: 1000000 !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+body {
+  background: var(--color-bg);
+}
+
+#tv-attr-logo {
+  display: none !important;
+}
+
+.first-item {
+  background-color: var(--color-darkGray-1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.first-item:hover {
+  background-color: var(--color-darkGray-3) !important;
+}
+
+.first-row {
+  background-color: var(--color-darkGray-1);
+  transition: background-color 0.2s ease;
+}
+
+.first-row:hover {
+  background-color: var(--color-darkGray-3) !important;
+}
+
+/* Добавьте в ваш CSS */
+.token-updated {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.token-updated::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(251, 191, 36, 0);
+  z-index: -1;
+  animation: flash 0.8s ease-in-out;
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    background-color: rgba(251, 191, 36, 0);
+  }
+  50% {
+    background-color: rgba(251, 191, 36, 0.6);
+  }
+}

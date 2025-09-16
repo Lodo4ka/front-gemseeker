@@ -1,0 +1,1 @@
+export { openedHowItWorksModal } from './model';

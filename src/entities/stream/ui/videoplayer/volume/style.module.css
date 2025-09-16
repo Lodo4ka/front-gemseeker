@@ -1,0 +1,41 @@
+.volume_slider {
+  -webkit-appearance: none;
+  appearance: none;
+  transform: rotate(-90deg);
+  width: 80px;
+  height: 24px; /* стало меньше */
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.volume_slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.volume_slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px; /* уменьшено */
+  height: 8px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  margin-top: -2px; /* центрируем */
+  transition: background 0.2s;
+}
+
+.volume_slider::-moz-range-track {
+  height: 4px;
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.volume_slider::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  cursor: pointer;
+}

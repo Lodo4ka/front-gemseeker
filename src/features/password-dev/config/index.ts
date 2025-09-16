@@ -1,0 +1,4 @@
+
+export const MODAL_KEYS = {
+    PASSWORD_AUTH_DEV: 'PASSWORD_AUTH_DEV_KEY'
+}

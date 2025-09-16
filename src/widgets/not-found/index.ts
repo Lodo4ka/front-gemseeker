@@ -1,0 +1,2 @@
+
+export {NotFoundTemplate} from './ui';
