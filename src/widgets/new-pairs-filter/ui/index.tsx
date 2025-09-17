@@ -16,57 +16,59 @@ export const NewPairsFilter = () => {
   const [minBuy, setMinBuy] = useState('0');
 
   return (
-    <div className="flex w-full flex-col gap-2">
-      <Tabs
-        controllers={TIME_TABS.map((label) => ({ children: label, name: label }))}
-        contents={TIME_TABS.map(() => (
-          <div />
-        ))}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        className={{
-          controllers: {
-            wrapper: 'h-[36px]',
-          },
-        }}
-        queryParamName="np_time"
-      />
-
-      <div className="flex flex-wrap items-center gap-3">
-        <CheckboxField
-          checked={sources.raydium}
-          toggle={(v) => setSources((s) => ({ ...s, raydium: v }))}
-          variant="square"
-          label={{ text: 'Raydium' }}
-        />
-        <CheckboxField
-          checked={sources.gemseeker}
-          toggle={(v) => setSources((s) => ({ ...s, gemseeker: v }))}
-          variant="square"
-          label={{ text: 'Gemseeker' }}
-        />
-        <CheckboxField
-          checked={sources.pump}
-          toggle={(v) => setSources((s) => ({ ...s, pump: v }))}
-          variant="square"
-          label={{ text: 'Pump' }}
-        />
-        <CheckboxField
-          checked={sources.moonshot}
-          toggle={(v) => setSources((s) => ({ ...s, moonshot: v }))}
-          variant="square"
-          label={{ text: 'Moonshot' }}
+    <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2">
+      <div className="flex items-center gap-x-4 gap-y-2">
+        <Tabs
+          controllers={TIME_TABS.map((label) => ({ children: label, name: label }))}
+          contents={TIME_TABS.map(() => (
+            <div />
+          ))}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          className={{
+            controllers: {
+              wrapper: 'h-[36px]',
+            },
+          }}
+          queryParamName="np_time"
         />
 
-        <div className="ml-auto max-w-[220px] min-w-[180px]">
-          <Input
-            placeholder="Buy"
-            value={minBuy}
-            onValue={setMinBuy}
-            rightAddon={{ text: '$' }}
-            classNames={{ flex: 'h-[36px]' }}
+        <div className="flex flex-wrap items-center gap-3">
+          <CheckboxField
+            checked={sources.raydium}
+            toggle={(v) => setSources((s) => ({ ...s, raydium: v }))}
+            variant="square"
+            label={{ text: 'Raydium' }}
+          />
+          <CheckboxField
+            checked={sources.gemseeker}
+            toggle={(v) => setSources((s) => ({ ...s, gemseeker: v }))}
+            variant="square"
+            label={{ text: 'Gemseeker' }}
+          />
+          <CheckboxField
+            checked={sources.pump}
+            toggle={(v) => setSources((s) => ({ ...s, pump: v }))}
+            variant="square"
+            label={{ text: 'Pump' }}
+          />
+          <CheckboxField
+            checked={sources.moonshot}
+            toggle={(v) => setSources((s) => ({ ...s, moonshot: v }))}
+            variant="square"
+            label={{ text: 'Moonshot' }}
           />
         </div>
+      </div>
+
+      <div className="ml-auto max-w-[220px] min-w-[180px]">
+        <Input
+          placeholder="Buy"
+          value={minBuy}
+          onValue={setMinBuy}
+          rightAddon={{ text: '$' }}
+          classNames={{ flex: 'h-[36px]' }}
+        />
       </div>
     </div>
   );
