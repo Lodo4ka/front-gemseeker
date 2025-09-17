@@ -24,6 +24,7 @@ const checkboxTheme = {
       container: {
         default: 'bg-darkGray-3',
         yellow: 'bg-yellow',
+        green: 'bg-green',
       },
       circle: 'translate-x-[18px]',
     },
@@ -35,7 +36,7 @@ type BaseCheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   toggle: () => void;
   handleClick?: () => void;
   variant?: CheckboxVariant;
-  switchStyle?: 'default' | 'yellow';
+  switchStyle?: 'default' | 'yellow' | 'green';
   className?: string;
   classNameSwitch?: string;
   classNameBtn?: string;
@@ -177,7 +178,7 @@ type CheckboxProps = {
   toggled: EventCallable<void>;
   variant?: CheckboxVariant;
   handleClick?: () => void;
-  switchStyle?: 'default' | 'yellow';
+  switchStyle?: 'default' | 'yellow' | 'green';
   className?: string;
   classNameSwitch?: string;
   classNameBtn?: string;
@@ -210,7 +211,7 @@ type CheckboxFieldProps = {
   checked: boolean;
   toggle: (value: boolean) => void;
   variant?: CheckboxVariant;
-  switchStyle?: 'default' | 'yellow';
+  switchStyle?: 'default' | 'yellow' | 'green';
   label?: {
     text: string;
     className?: string;

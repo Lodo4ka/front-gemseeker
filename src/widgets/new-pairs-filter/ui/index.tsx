@@ -19,12 +19,14 @@ export const NewPairsFilter = () => {
     <div className="flex w-full flex-col gap-2">
       <Tabs
         controllers={TIME_TABS.map((label) => ({ children: label, name: label }))}
-        contents={TIME_TABS.map(() => <div />)}
+        contents={TIME_TABS.map(() => (
+          <div />
+        ))}
         activeTab={activeTab}
         onTabChange={setActiveTab}
         className={{
           controllers: {
-            wrapper: 'h-[36px]'
+            wrapper: 'h-[36px]',
           },
         }}
         queryParamName="np_time"
@@ -35,28 +37,32 @@ export const NewPairsFilter = () => {
           checked={sources.raydium}
           toggle={(v) => setSources((s) => ({ ...s, raydium: v }))}
           variant="switch"
+          switchStyle="green"
           label={{ text: 'Raydium' }}
         />
         <CheckboxField
           checked={sources.gemseeker}
           toggle={(v) => setSources((s) => ({ ...s, gemseeker: v }))}
           variant="switch"
+          switchStyle="green"
           label={{ text: 'Gemseeker' }}
         />
         <CheckboxField
           checked={sources.pump}
           toggle={(v) => setSources((s) => ({ ...s, pump: v }))}
           variant="switch"
+          switchStyle="green"
           label={{ text: 'Pump' }}
         />
         <CheckboxField
           checked={sources.moonshot}
           toggle={(v) => setSources((s) => ({ ...s, moonshot: v }))}
           variant="switch"
+          switchStyle="green"
           label={{ text: 'Moonshot' }}
         />
 
-        <div className="ml-auto min-w-[180px] max-w-[220px]">
+        <div className="ml-auto max-w-[220px] min-w-[180px]">
           <Input
             placeholder="Buy"
             value={minBuy}
