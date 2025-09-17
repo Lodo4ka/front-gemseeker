@@ -1,14 +1,12 @@
 import { ContentMarket } from 'widgets/markets/ui/content/index.tsx';
 import { SelectWallet } from 'entities/wallet';
 import { QuickBuyInput } from 'features/quick-buy';
-import { ToggleAnimations } from 'features/toggle-animations';
-import { ToggleNSFW } from 'features/toggle-nsfw';
-import { ToggleView } from 'features/toggle-view';
 import { LoadedData } from 'shared/ui/loaded-data';
 import { HeadPause } from 'shared/ui/head-pause';
 import { $publicKey } from 'entities/wallet';
 import { useUnit } from 'effector-react';
 import { onLoadedFirst } from 'widgets/markets/model';
+import { NewPairsFilter } from 'widgets/new-pairs-filter/ui/index.tsx';
 
 export const NewPairsMarket = () => {
   const publicKey = useUnit($publicKey);
@@ -22,7 +20,7 @@ export const NewPairsMarket = () => {
 
       <div className="relative z-2 flex w-full flex-col gap-4">
         <div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
-          {/* <Filters /> */}
+          <NewPairsFilter />
           <div className="flex items-center gap-[10px] max-lg:w-full max-sm:flex-col-reverse">
             <div className="flex flex-row flex-wrap items-center gap-[5px] max-lg:w-full sm:gap-[10px]">
               {publicKey && (
@@ -38,11 +36,6 @@ export const NewPairsMarket = () => {
               <QuickBuyInput />
             </div>
           </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <ToggleAnimations />
-          <ToggleNSFW />
-          <ToggleView />
         </div>
       </div>
 
