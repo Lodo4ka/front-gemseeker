@@ -1,7 +1,7 @@
 import { namedLazy } from 'shared/lib/named-lazy';
 
 import { authenticatedRoute, currentRoute } from './model';
-import { MemescopeFallback } from './ui';
+import { MemescopeFallback, MemescopePage } from './ui';
 import { Suspense } from 'react';
 import { createRouteView } from 'atomic-router-react';
 import { SoonPage } from 'pages/not-found';
@@ -12,11 +12,11 @@ const MemepadRouteView = createRouteView({
   route: authenticatedRoute,
   view: () => (
     <Suspense fallback={<SoonPage />}>
-      <SoonPage />
-      {/* <MemescopePage /> */}
+      {/* <SoonPage /> */}
+      <MemescopePage />
     </Suspense>
   ),
-  otherwise: () => <SoonPage />
+  otherwise: () => <SoonPage />,
 });
 
 export const MemescopeRoute = {

@@ -1,35 +1,29 @@
+import { useUnit } from 'effector-react';
 
-import { useUnit } from "effector-react";
-
-import { tabs } from "../config";
-import { $platform } from "../model";
-import { Typography } from "shared/ui/typography";
-import { Tabs } from "shared/ui/tabs";
-import { Platform } from "./platform";
-import { MemescopePump } from "widgets/memescope-pump";
-import { MemescopeNewCreation } from "widgets/memescope-new-creation";
-import { MemescopeSoaring } from "widgets/memescope-soaring";
-import { MemescopeCompleted } from "widgets/memescope-completed";
-import { MemescopeCompeting } from "widgets/memescope-competing";
+import { tabs } from '../config';
+import { $platform } from '../model';
+import { Typography } from 'shared/ui/typography';
+import { Tabs } from 'shared/ui/tabs';
+import { Platform } from './platform';
+import { MemescopePump } from 'widgets/memescope-pump';
+import { MemescopeNewCreation } from 'widgets/memescope-new-creation';
+import { MemescopeSoaring } from 'widgets/memescope-soaring';
+import { MemescopeCompleted } from 'widgets/memescope-completed';
+import { MemescopeCompeting } from 'widgets/memescope-competing';
+import { MemescopeList } from 'widgets/memescope-list/ui/index.tsx';
 
 export const MemescopePage = () => {
   const [activePlatform] = useUnit([$platform]);
 
   return (
     <div className="flex w-full flex-col">
-      <Typography
-        size="headline4"
-        color="secondary"
-        icon={{ name: 'gemescope', position: 'left', size: 20 }}
-      >
+      <Typography size="headline4" color="secondary" icon={{ name: 'gemescope', position: 'left', size: 20 }}>
         Memescope
       </Typography>
-
       <Platform />
-
       <Tabs
         className={{
-          wrapper: "mt-[16px]"
+          wrapper: 'mt-[16px]',
         }}
         controllers={tabs.map((tab, idx) => ({
           children: idx === 0 ? activePlatform : tab.name,
@@ -43,15 +37,11 @@ export const MemescopePage = () => {
           <MemescopeCompleted />,
         ]}
       />
+      <MemescopeList />,
     </div>
   );
 };
 
 export const MemescopeFallback = () => {
-
-  return (
-    <div className="flex w-full flex-col">
-
-    </div>
-  );
+  return <div className="flex w-full flex-col"></div>;
 };

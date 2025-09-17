@@ -22,7 +22,7 @@ import { LoadedData } from 'shared/ui/loaded-data';
 import { useMemo } from 'react';
 import { $rate } from 'features/exchange-rate';
 import { AnimationWrapper } from 'shared/ui/update-wrapper';
-import { Progress } from '../components/progress';
+import tokenImage from 'app/styles/Memescope/Memescope/image.png';
 
 type TokenMarketProps = {
   className?: string;
@@ -80,7 +80,7 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
       />
       <div className="hidden h-full flex-col items-center justify-between md:flex">
         <Avatar
-          url={pinataUrl(token.photo_hash) ?? ''}
+          url={tokenImage}
           progress={token.bounding_curve}
           isMigrate={token.trade_finished}
           play={token.is_streaming}
@@ -102,7 +102,7 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
       <div className="flex w-full flex-col gap-3 overflow-x-hidden">
         <div className="flex w-full items-center gap-2 md:gap-0">
           <Avatar
-            url={pinataUrl(token.photo_hash) ?? ''}
+            url={tokenImage}
             progress={token.bounding_curve}
             isMigrate={token.trade_finished}
             play={token.is_streaming}
@@ -117,11 +117,14 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
             <div className="flex w-full items-center justify-between">
               <div className="xs:gap-2 flex items-center gap-[6px]">
                 <Typography
-                  className="xs:!gap-2 max-w-[160px] !gap-[6px] truncate max-md:!gap-1 max-md:!text-[12px]"
+                  className="xs:!gap-2 max-w-[160px] !gap-[6px] truncate text-white max-md:!gap-1 max-md:!text-[12px]"
                   color="secondary"
                   size="subheadline2"
                   icon={{ name: 'dot', size: 4, position: 'right' }}>
                   {token.name}
+                </Typography>
+                <Typography size="subheadline2" color="secondary" className="truncate max-md:!text-[12px]">
+                  {token.created_by.user_nickname}
                 </Typography>
                 <Typography
                   size="subheadline2"
@@ -134,31 +137,17 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
                   }}>
                   {formatter.number.uiDefault(token.messages)}
                 </Typography>
-                {token.is_nsfw && (
+                {/* {token.is_nsfw && (
                   <>
                     <Icon name="dot" className="text-secondary" size={4} />
                     <Typography size="subheadline2" className={s.nsfw}>
                       NSFW
                     </Typography>
                   </>
-                )}
+                )} */}
               </div>
 
               <QuickBuyButton token={token} className="relative z-1" />
-            </div>
-            <div className="flex items-center gap-2">
-              <Typography size="subheadline2" className="max-md:!text-[12px]" weight="regular">
-                {token.symbol}
-              </Typography>
-              <Typography className="flex text-nowrap" size="captain1" color="green">
-                MC: ${formatter.number.uiDefault(mcap)}
-              </Typography>
-              <Progress
-                prev_ath={token.prev_ath}
-                current={token.mcap}
-                lastTxTimestamp={token.last_tx_timestamp}
-                ath={token.ath}
-              />
             </div>
 
             <div className="flex items-center justify-between"></div>
@@ -215,34 +204,38 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
                 className="!gap-1"
                 icon={{ name: 'user', position: 'left', size: 16 }}
                 color="secondary">
-                {typeof currentDopInfo?.topHolders === 'number' &&
-                  `${formatter.number.round(currentDopInfo.topHolders, 1)}%`}
-                {typeof currentDopInfo?.topHolders != 'number' && <Skeleton isLoading className="h-5 w-6" />}
+                11%
+                {/* {typeof currentDopInfo?.topHolders === 'number' &&
+                  `${formatter.number.round(currentDopInfo.topHolders, 1)}%`} */}
+                {/* {typeof currentDopInfo?.topHolders != 'number' && <Skeleton isLoading className="h-5 w-6" />} */}
               </Typography>
               <Typography
                 size="captain1"
                 className="!gap-1"
                 icon={{ name: 'circled', position: 'left', size: 16 }}
                 color="secondary">
-                {typeof currentDopInfo?.snipers === 'number' && `${formatter.number.round(currentDopInfo.snipers, 1)}%`}
-                {typeof currentDopInfo?.snipers != 'number' && <Skeleton isLoading className="h-5 w-6" />}
+                12%
+                {/* {typeof currentDopInfo?.snipers === 'number' && `${formatter.number.round(currentDopInfo.snipers, 1)}%`}
+                {typeof currentDopInfo?.snipers != 'number' && <Skeleton isLoading className="h-5 w-6" />} */}
               </Typography>
               <Typography
                 size="captain1"
                 className="!gap-1"
                 icon={{ name: 'cook', position: 'left', size: 16 }}
                 color="secondary">
-                {typeof currentDopInfo?.creator === 'number' && `${formatter.number.round(currentDopInfo.creator, 1)}%`}
-                {typeof currentDopInfo?.creator != 'number' && <Skeleton isLoading className="h-5 w-6" />}
+                13%
+                {/* {typeof currentDopInfo?.creator === 'number' && `${formatter.number.round(currentDopInfo.creator, 1)}%`}
+                {typeof currentDopInfo?.creator != 'number' && <Skeleton isLoading className="h-5 w-6" />} */}
               </Typography>
               <Typography
                 size="captain1"
                 className="!gap-1"
                 icon={{ name: 'mouse', position: 'left', size: 16 }}
                 color="secondary">
-                {typeof currentDopInfo?.insiders === 'number' &&
+                54%
+                {/* {typeof currentDopInfo?.insiders === 'number' &&
                   `${formatter.number.round(currentDopInfo.insiders, 1)}%`}
-                {typeof currentDopInfo?.insiders != 'number' && <Skeleton isLoading className="h-5 w-6" />}
+                {typeof currentDopInfo?.insiders != 'number' && <Skeleton isLoading className="h-5 w-6" />} */}
               </Typography>
               {token.is_streaming && (
                 <Typography className="gap-[3px]" color="secondary" weight="regular" size="captain1">
@@ -263,9 +256,10 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
             username={token.created_by.user_nickname}
           />
 
-          {/* <Typography className="flex text-nowrap md:hidden" size="captain1" color="green">
-            MC: ${formatter.number.uiDefault(mcap)}
-          </Typography> */}
+          <Typography className="flex text-nowrap" size="captain1" color="green">
+            {/* MC: ${formatter.number.uiDefault(mcap)} */}
+            MC: 24$
+          </Typography>
         </div>
       </div>
     </AnimationWrapper>
