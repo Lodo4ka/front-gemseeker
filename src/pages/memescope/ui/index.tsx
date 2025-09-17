@@ -11,6 +11,7 @@ import { MemescopeSoaring } from 'widgets/memescope-soaring';
 import { MemescopeCompleted } from 'widgets/memescope-completed';
 import { MemescopeCompeting } from 'widgets/memescope-competing';
 import { MemescopeList } from 'widgets/memescope-list/ui/index.tsx';
+import { InputQuickBuy } from 'features/input-quick-buy/index.tsx';
 
 export const MemescopePage = () => {
   const [activePlatform] = useUnit([$platform]);
@@ -29,6 +30,10 @@ export const MemescopePage = () => {
           children: idx === 0 ? activePlatform : tab.name,
           theme: 'tertiary',
         }))}
+        rightAction={{
+          content: <InputQuickBuy />,
+          tabActive: 0,
+        }}
         contents={[
           <MemescopePump />,
           <MemescopeNewCreation />,
