@@ -2,17 +2,19 @@ import { useUnit } from 'effector-react';
 import { Typography } from 'shared/ui/typography';
 import { IconName } from 'shared/ui/icon';
 import { $isPausedNewData, type PauseVariant } from 'features/pause-control';
+import clsx from 'clsx';
 
 interface HeadPauseProps {
   title: string;
   pauseVariant: PauseVariant;
   iconName?: IconName;
+  className?: string;
 }
 
-export const HeadPause = ({ title, pauseVariant, iconName }: HeadPauseProps) => {
+export const HeadPause = ({ title, pauseVariant, iconName, className }: HeadPauseProps) => {
   const [isPause] = useUnit([$isPausedNewData]);
   return (
-    <div className="flex gap-[24px]">
+    <div className={clsx('flex gap-[24px]', className)}>
       <Typography
         size="headline4"
         className="!gap-2"

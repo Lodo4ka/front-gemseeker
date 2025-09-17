@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tabs } from 'shared/ui/tabs/ui';
 import { CheckboxField } from 'shared/ui/checkbox';
-import { Input } from 'shared/ui/input';
+import { InputQuickBuy } from 'features/input-quick-buy';
 
 const TIME_TABS = ['1m', '5m', '1h', '6h', '24h'];
 
@@ -13,11 +13,10 @@ export const NewPairsFilter = () => {
     pump: true,
     moonshot: true,
   });
-  const [minBuy, setMinBuy] = useState('0');
 
   return (
     <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2">
-      <div className="flex items-center gap-x-4 gap-y-2">
+      <div className="flex items-center justify-center gap-x-4 gap-y-2">
         <Tabs
           controllers={TIME_TABS.map((label) => ({ children: label, name: label }))}
           contents={TIME_TABS.map(() => (
@@ -33,7 +32,7 @@ export const NewPairsFilter = () => {
           queryParamName="np_time"
         />
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="mb-3 flex items-center justify-center gap-3">
           <CheckboxField
             checked={sources.raydium}
             toggle={(v) => setSources((s) => ({ ...s, raydium: v }))}
@@ -62,13 +61,7 @@ export const NewPairsFilter = () => {
       </div>
 
       <div className="ml-auto max-w-[220px] min-w-[180px]">
-        <Input
-          placeholder="Buy"
-          value={minBuy}
-          onValue={setMinBuy}
-          rightAddon={{ text: '$' }}
-          classNames={{ flex: 'h-[36px]' }}
-        />
+        <InputQuickBuy />
       </div>
     </div>
   );

@@ -11,7 +11,6 @@ import { MemescopeSoaring } from 'widgets/memescope-soaring';
 import { MemescopeCompleted } from 'widgets/memescope-completed';
 import { MemescopeCompeting } from 'widgets/memescope-competing';
 import { InputQuickBuy } from 'features/input-quick-buy/index.tsx';
-import { NewPairsMarket } from 'widgets/new-pairs/ui';
 
 export const MemescopePage = () => {
   const [activePlatform] = useUnit([$platform]);

@@ -164,14 +164,12 @@ const CheckboxBase = ({
           <input
             disabled={disabled}
             type="checkbox"
-            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            className="absolute inset-0 h-full w-full cursor-pointer border-none opacity-0"
             onChange={handleClick ?? toggle}
             checked={checked}
             {...props}
           />
-          {variant === 'square' && checked && (
-            <Icon name="tick" size={10} className="text-white pointer-events-none" />
-          )}
+          {variant === 'square' && checked && <Icon name="tick" size={10} className="pointer-events-none text-white" />}
         </div>
       )}
       {label && (
