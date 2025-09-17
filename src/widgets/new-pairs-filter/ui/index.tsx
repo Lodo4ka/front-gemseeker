@@ -36,29 +36,25 @@ export const NewPairsFilter = () => {
         <CheckboxField
           checked={sources.raydium}
           toggle={(v) => setSources((s) => ({ ...s, raydium: v }))}
-          variant="switch"
-          switchStyle="green"
+          variant="square"
           label={{ text: 'Raydium' }}
         />
         <CheckboxField
           checked={sources.gemseeker}
           toggle={(v) => setSources((s) => ({ ...s, gemseeker: v }))}
-          variant="switch"
-          switchStyle="green"
+          variant="square"
           label={{ text: 'Gemseeker' }}
         />
         <CheckboxField
           checked={sources.pump}
           toggle={(v) => setSources((s) => ({ ...s, pump: v }))}
-          variant="switch"
-          switchStyle="green"
+          variant="square"
           label={{ text: 'Pump' }}
         />
         <CheckboxField
           checked={sources.moonshot}
           toggle={(v) => setSources((s) => ({ ...s, moonshot: v }))}
-          variant="switch"
-          switchStyle="green"
+          variant="square"
           label={{ text: 'Moonshot' }}
         />
 

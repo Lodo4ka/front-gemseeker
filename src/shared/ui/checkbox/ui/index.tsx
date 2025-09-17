@@ -13,8 +13,8 @@ const checkboxTheme = {
     checked: 'border-yellow bg-primary border-[5px]',
   },
   square: {
-    base: 'rounded-[2px] border-[0.5px] transition-all duration-100 ease-in-out border-secondary relative w-4 h-4',
-    checked: 'bg-[url(/src/shared/ui/checkbox/ui/assets/success.svg)] bg-no-repeat bg-center bg-cover border-none',
+    base: 'rounded-[4px] border-[1px] transition-all duration-100 ease-in-out border-secondary relative w-[18px] h-[18px] flex justify-center items-center',
+    checked: 'bg-green border-green',
   },
   switch: {
     container: 'relative w-9 h-5 bg-darkGray-3 rounded-full transition-all duration-300 ease-in-out',
@@ -76,16 +76,13 @@ const CheckboxBase = ({
       {variant === 'switch' ? (
         <div
           className={clsx(checkboxTheme.switch.container, classNameSwitch, {
-            [checkboxTheme.switch.checked.container[switchStyle]]: checked,
+            [checkboxTheme.switch.checked.container[switchStyle as 'yellow' | 'green']]: checked,
             'opacity-50': disabled,
           })}>
-          <div className={clsx(
-            checkboxTheme.switch.circle, 
-            classNameBtn, 
-            { 
-              [clsx(checkboxTheme.switch.checked.circle, classNameBtnChecked)]: checked
-            }
-          )}>
+          <div
+            className={clsx(checkboxTheme.switch.circle, classNameBtn, {
+              [clsx(checkboxTheme.switch.checked.circle, classNameBtnChecked)]: checked,
+            })}>
             {checkedIcon && (
               <Icon
                 name={checkedIcon.name}
@@ -144,7 +141,7 @@ const CheckboxBase = ({
             />
           )}
           <input
-            disabled={disabled} 
+            disabled={disabled}
             type="checkbox"
             className="absolute inset-0 cursor-pointer opacity-0"
             onChange={handleClick ?? toggle}
@@ -153,16 +150,29 @@ const CheckboxBase = ({
           />
         </div>
       ) : (
-        <input
-          disabled={disabled}
-          type="checkbox"
-          className={clsx('cursor-pointer appearance-none', checkboxTheme[variant].base, {
+        <div
+          className={clsx('cursor-pointer', checkboxTheme[variant].base, {
             [checkboxTheme[variant].checked]: checked,
           })}
-          onChange={handleClick ?? toggle}
-          checked={checked}
-          {...props}
-        />
+          onClick={() => {
+            if (handleClick) {
+              handleClick();
+            } else {
+              toggle();
+            }
+          }}>
+          <input
+            disabled={disabled}
+            type="checkbox"
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            onChange={handleClick ?? toggle}
+            checked={checked}
+            {...props}
+          />
+          {variant === 'square' && checked && (
+            <Icon name="tick" size={10} className="text-white pointer-events-none" />
+          )}
+        </div>
       )}
       {label && (
         <Typography size="captain1" className={clsx('select-none', label.className)}>
@@ -197,11 +207,7 @@ type CheckboxProps = {
   };
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>;
 
-export const Checkbox = ({ 
-  $isChecked, 
-  toggled,
-  ...rest 
-}: CheckboxProps) => {
+export const Checkbox = ({ $isChecked, toggled, ...rest }: CheckboxProps) => {
   const [checked, toggle] = useUnit([$isChecked, toggled]);
 
   return <CheckboxBase checked={checked} toggle={toggle} {...rest} />;
