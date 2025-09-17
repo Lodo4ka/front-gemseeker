@@ -10,8 +10,8 @@ import { MemescopeNewCreation } from 'widgets/memescope-new-creation';
 import { MemescopeSoaring } from 'widgets/memescope-soaring';
 import { MemescopeCompleted } from 'widgets/memescope-completed';
 import { MemescopeCompeting } from 'widgets/memescope-competing';
-import { MemescopeList } from 'widgets/memescope-list/ui/index.tsx';
 import { InputQuickBuy } from 'features/input-quick-buy/index.tsx';
+import { NewPairsMarket } from 'widgets/new-pairs/ui';
 
 export const MemescopePage = () => {
   const [activePlatform] = useUnit([$platform]);
@@ -42,7 +42,6 @@ export const MemescopePage = () => {
           <MemescopeCompleted />,
         ]}
       />
-      <MemescopeList />,
     </div>
   );
 };

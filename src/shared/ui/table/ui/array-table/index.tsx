@@ -138,12 +138,12 @@ const TableComponent = <T extends unknown>({
   additionalInfo,
   noData,
 }: TableProps<T>) => {
-  const reachEndOfList = useUnit(reachedEndOfList);
-  const isDataRanedOut = useUnit($isDataRanedOut);
+  // const reachEndOfList = useUnit(reachedEndOfList);
+  // const isDataRanedOut = useUnit($isDataRanedOut);
 
-  const onView = (inView: boolean) => {
-    if (inView) reachEndOfList();
-  };
+  // const onView = (inView: boolean) => {
+  //   if (inView) reachEndOfList();
+  // };
 
   const getItemKey = useCallback(
     (item: T, index: number): string | number => {
@@ -160,9 +160,9 @@ const TableComponent = <T extends unknown>({
   );
 
   const getRowAnimation = (index: number, length: number): Variants => {
-    if (index === 0) return animation?.first || animations.table.flashAndShake;
-    if (index === length - 1) return animation?.last || animations.table.flash.last;
-    return animation?.default || animations.table.flash.default;
+    if (index === 0) return (animation?.first || (animations.table.flashAndShake as unknown)) as Variants;
+    if (index === length - 1) return (animation?.last || (animations.table.flash.last as unknown)) as Variants;
+    return (animation?.default || (animations.table.flash.default as unknown)) as Variants;
   };
 
   if (data === null) {
@@ -200,14 +200,19 @@ const TableComponent = <T extends unknown>({
         <div className={clsx('w-fit min-w-full rotate-x-180', className?.container)}>
           <div className={clsx('bg-darkGray-1 overflow-hidden rounded-xl', className?.wrapper)}>
             <table className={clsx('w-full', className?.table)}>
-              <thead className={clsx('border-b-separator border-b-[0.5px]', className?.header)}>
-                 <tr>
+              <thead
+                className={clsx(
+                  'border-b-separator sticky top-0 z-10 border-b-[0.5px]',
+                  'bg-darkGray-1/80 supports-[backdrop-filter]:bg-darkGray-1/70 backdrop-blur',
+                  className?.header,
+                )}>
+                <tr>
                   {columns.map((column) => (
                     <th
                       key={column.key}
                       className={clsx(
-                        'px-4 py-[10px] text-left whitespace-nowrap',
-                        'text-secondary text-sm font-normal',
+                        'px-4 py-3 text-left align-middle whitespace-nowrap',
+                        'text-secondary text-xs font-medium tracking-wide uppercase',
                         className?.headerCell,
                         column?.className,
                       )}>
@@ -254,21 +259,6 @@ const TableComponent = <T extends unknown>({
                       </td>
                     ))}
                   </tr>
-                )}
-
-                {!isDataRanedOut && data.length > 0 && (
-                  <>
-                    <InView as="tr" className="relative -top-5" onChange={onView} />
-                    <Skeletons
-                      rowsCount={rowsCount}
-                      columnsCount={columns.length}
-                      className={{
-                        row: clsx('hover:bg-darkGray-3', className?.row),
-                        cell: className?.cell,
-                        firstRow: 'border-t-separator border-t-[0.5px]',
-                      }}
-                    />
-                  </>
                 )}
               </tbody>
             </table>

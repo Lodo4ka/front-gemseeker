@@ -1,0 +1,1 @@
+export { NewPairsMarket } from './ui';

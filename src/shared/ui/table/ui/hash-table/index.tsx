@@ -1,4 +1,4 @@
-import { JSX, ReactNode, memo, useState, useRef, useEffect, useMemo } from 'react';
+import { JSX, ReactNode, memo, useState, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import { useUnit } from 'effector-react';
 import { InView } from 'react-intersection-observer';
@@ -10,6 +10,7 @@ import { Skeleton } from 'shared/ui/skeleton';
 import { Skeletons, TableFallback } from '../components';
 import { useHover } from 'shared/lib/use-hover';
 import { PauseVariant } from 'features/pause-control';
+import { Icon } from 'shared/ui/icon';
 
 export type HashTableData<T> = Record<string, T>;
 export type KeyType = string | number;
@@ -21,6 +22,9 @@ export interface HashTableColumn<T> {
   className?: string;
   last?: (item: T) => ReactNode;
   isNotOnClick?: boolean;
+  isSortable?: boolean;
+  sortDirection?: 'asc' | 'desc' | null;
+  onSort?: (next: 'asc' | 'desc') => void;
 }
 
 export interface HashTableProps<T> {
@@ -196,9 +200,9 @@ const HashTableComponent = <T extends unknown>({
   };
 
   const getRowAnimation = (index: number, length: number): Variants => {
-    if (index === 0) return animation?.first || animations.table.flashAndShake;
-    if (index === length - 1) return animation?.last || animations.table.flash.last;
-    return animation?.default || animations.table.flash.default;
+    if (index === 0) return animation?.first ?? (animations.table.flashAndShake as unknown as Variants);
+    if (index === length - 1) return animation?.last ?? (animations.table.flash.last as unknown as Variants);
+    return animation?.default ?? (animations.table.flash.default as unknown as Variants);
   };
 
   if (keys === null) {
@@ -242,7 +246,28 @@ const HashTableComponent = <T extends unknown>({
                         className?.headerCell,
                         column?.className,
                       )}>
-                      {column.title}
+                      {column.isSortable ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const next = column.sortDirection === 'desc' ? 'asc' : 'desc';
+                            column.onSort?.(next);
+                          }}
+                          className={clsx('group hover:text-primary inline-flex items-center gap-2')}
+                          aria-label={`Sort by ${typeof column.title === 'string' ? column.title : column.key}`}>
+                          <span>{column.title}</span>
+                          <Icon
+                            name="sort"
+                            className={clsx(
+                              'transition-transform duration-200',
+                              column.sortDirection === 'asc' ? 'rotate-180' : 'rotate-0',
+                            )}
+                            size={12}
+                          />
+                        </button>
+                      ) : (
+                        column.title
+                      )}
                     </th>
                   ))}
                 </tr>

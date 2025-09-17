@@ -1,10 +1,15 @@
 import { Button } from 'shared/ui/button';
 import { ColumnTitle } from '../columns-title';
+import { TokenMarket, TokenMarketFallback } from 'entities/token';
 import { useUnit } from 'effector-react';
 import { modalsStore, type ModalId } from 'shared/lib/modal';
 import { ModalDefault } from 'shared/ui/modal';
 import { MemescopeFilter } from 'features/memescope-filter/ui';
-import { ContentMarket } from 'widgets/markets/ui/content/index.tsx';
+import { $list, $tokens, $isEndReached } from 'widgets/markets/model';
+import { $rate } from 'features/exchange-rate';
+import { dataRanedOut } from 'widgets/markets/model';
+import { $isChecked } from 'features/toggle-view';
+import { ListWithPagination } from 'shared/ui/list-with-pagination';
 
 interface ColumnProps {
   idx: number;
@@ -12,6 +17,8 @@ interface ColumnProps {
 
 export const Column = ({ idx }: ColumnProps) => {
   const [openModal, closeModal] = useUnit([modalsStore.openModal, modalsStore.closeModal]);
+  const [list, rate, isViewTable] = useUnit([$list, $rate, $isChecked]);
+  const tokens = useUnit($tokens);
 
   const FILTER_MODAL_ID = 'memescope_filter_panel';
 
@@ -61,7 +68,22 @@ export const Column = ({ idx }: ColumnProps) => {
       </div>
 
       <div className="flex w-full flex-col rounded-xl">
-        <ContentMarket />
+        <ListWithPagination
+          layout="grid"
+          list={list}
+          className={{
+            list: 'xs:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] grid w-full grid-cols-[repeat(auto-fill,minmax(100%,1fr))] gap-[10px]',
+          }}
+          $isDataRanedOut={$isEndReached}
+          reachedEndOfList={dataRanedOut}
+          skeleton={{ Element: <TokenMarketFallback />, count: 30 }}
+          uniqueKey={(address) => address}
+          renderItem={(id) => {
+            const token = tokens[id];
+            if (!token) return null;
+            return <TokenMarket token={token} />;
+          }}
+        />
       </div>
     </div>
   );

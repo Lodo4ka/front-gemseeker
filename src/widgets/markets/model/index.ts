@@ -47,6 +47,9 @@ export const $sortingFilter = createStore<SortingFilter>('last_order').on(
   (_, payload) => payload,
 );
 
+export const changedSortingOrder = createEvent<'desc' | 'asc'>();
+export const $sortingOrder = createStore<'desc' | 'asc'>('desc').on(changedSortingOrder, (_, payload) => payload);
+
 export const $list = createStore<string[] | null>(null);
 
 // Reset markets data when leaving memepad page
@@ -86,8 +89,10 @@ sample({
   target: $isEndReached,
 });
 
-$currentPage.reset([changedSortingFilter, $isNSFWEnabled]);
-$list.reset([changedSortingFilter, $isNSFWEnabled]);
+$currentPage.reset([changedSortingFilter, changedSortingOrder, $isNSFWEnabled]);
+$list.reset([changedSortingFilter, changedSortingOrder, $isNSFWEnabled]);
+$isEndReached.reset([changedSortingFilter, changedSortingOrder]);
+$sortingOrder.reset([changedSortingFilter]);
 
 sample({
   clock: api.queries.token.list.finished.success,
@@ -117,18 +122,20 @@ sample({
 });
 
 sample({
-  clock: [onLoadedFirst, changedSortingFilter, $isNSFWEnabled, loadNextPage],
+  clock: [onLoadedFirst, changedSortingFilter, changedSortingOrder, $isNSFWEnabled, loadNextPage],
   source: {
     show_nsfw: $isNSFWEnabled,
     sorting_filter: $sortingFilter,
+    sorting_order: $sortingOrder,
     offset: $currentPage,
     tokenList: $list,
     pending: api.queries.token.list.$pending,
   },
   filter: ({ pending }) => !pending,
-  fn: ({ show_nsfw, sorting_filter, offset }) => ({
+  fn: ({ show_nsfw, sorting_filter, sorting_order, offset }) => ({
     show_nsfw,
     sorting_filter,
+    sorting_order,
     offset,
     limit,
   }),

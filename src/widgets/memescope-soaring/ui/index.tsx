@@ -1,160 +1,46 @@
-
-import { QuickBuyButton } from "features/quick-buy";
-import { formatter } from "shared/lib/formatter";
-import { ColumnToken } from "shared/ui/column-token";
-import { Column, Table } from "shared/ui/table"
-import { Typography } from "shared/ui/typography";
-
-export const columns: Column<number>[] = [
-  {
-    key: 'PairInfo',
-    title: 'Pair Info',
-    className: 'min-w-[200px]',
-    render: () => {
-      const props = {
-        photo_hash: '', 
-        name: 'Name', 
-        symbol: 'NME', 
-        address: '',
-        twitter: '',
-        website: '',
-        telegram: '',
-        bounding_curve: 0,
-        isPlay:false
-      }
-      return (
-        <ColumnToken {...props} />
-      )
-    },
-  },
-  {
-    key: '1mFDV',
-    title: '1m FDV',
-    className: 'min-w-[200px]',
-    render: () => (
-      <div className="flex flex-col gap-[4px]">
-        <Typography color='green' size="subheadline2" weight="regular">+{formatter.number.uiDefault(4999)}</Typography>
-        <Typography color='green' size="captain1" weight="regular">+{formatter.number.uiDefault(32.6)}%</Typography>
-      </div>
-    ),
-  },
-  {
-    key: '5mFDV',
-    title: '5m FDV',
-    className: 'min-w-[200px]',
-    render: () => (
-      <div className="flex flex-col gap-[4px]">
-        <Typography color='green' size="subheadline2" weight="regular">+{formatter.number.uiDefault(4999)}</Typography>
-        <Typography color='green' size="captain1" weight="regular">+{formatter.number.uiDefault(32.6)}%</Typography>
-      </div>
-    ),
-  },
-  {
-    key: 'Status',
-    title: 'Status',
-    className: 'min-w-[200px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular">
-        {formatter.number.uiDefault(0)}%
-      </Typography>
-    ),
-  },
-  {
-    key: 'Age',
-    title: 'Age',
-    className: 'min-w-[200px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular" color='green'>
-        12s
-      </Typography>
-    ),
-  },
-  {
-    key: 'SOLBal',
-    title: 'SOL Bal',
-    className: 'min-w-[100px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular">
-        {formatter.number.uiDefault(7.5)}
-      </Typography>
-    ),
-  },
-  {
-    key: 'Holders',
-    title: 'Holders',
-    className: 'min-w-[100px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular" color="secondary">
-        {formatter.number.uiDefault(5554)}
-      </Typography>
-    ),
-  },
-  {
-    key: '1hTXs',
-    title: '1h TXs',
-    className: 'min-w-[100px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular">
-        {formatter.number.uiDefault(244)}
-      </Typography>
-    ),
-  },
-  {
-    key: '1hVol',
-    title: '1h Vol',
-    className: 'min-w-[100px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular" color="secondary">
-        {formatter.number.uiDefault(664)}
-      </Typography>
-    ),
-  },
-  {
-    key: 'MCap',
-    title: 'M. Cap',
-    className: 'min-w-[100px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular" color="secondary">
-        {formatter.number.uiDefault(19_943)}
-      </Typography>
-    ),
-  },
-  {
-    key: 'Last',
-    title: 'Last',
-    className: 'min-w-[100px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular" color="green">
-        4s 
-      </Typography>
-    ),
-  },
-  {
-    key: 'Dev',
-    title: 'Dev',
-    className: 'min-w-[100px]',
-    render: () => (
-      <Typography size="subheadline2" weight="regular" color="red">
-        
-      </Typography>
-    ),
-  },
-  {
-    key: 'QuickBuy',
-    title: 'Quick Buy',
-    render: () => <QuickBuyButton address={''} />,
-  },
-];
+import { HashTable, TableFallback } from 'shared/ui/table';
+import { LoadedData } from 'shared/ui/loaded-data';
+import { useUnit } from 'effector-react';
+import { useColumns } from 'widgets/markets/ui/table';
+import { $list, $tokens, $isEndReached, dataRanedOut, onLoadedFirst } from 'widgets/markets/model';
+import { $rate } from 'features/exchange-rate';
+import { $isAnimationsEnabled } from 'features/toggle-animations';
+import { animations } from 'shared/config/animations';
+import type { Variants } from 'framer-motion';
+import { Token } from 'entities/token';
 
 export const MemescopeSoaring = () => {
-    const data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const columns = useColumns();
+  const [list, tokens, rate, isAnimationEnabled] = useUnit([$list, $tokens, $rate, $isAnimationsEnabled]);
+  const isLoading = list === null;
 
-    return(
-        <>
-            <Table
-                columns={columns}
-                data={data}
-            />
-        </>
-    )
-}
+  if (isLoading)
+    return (
+      <>
+        <LoadedData isOnce loadedData={onLoadedFirst} />
+        <TableFallback rowsCount={30} columnsCount={columns.length} />
+      </>
+    );
+
+  return (
+    <HashTable<Token>
+      isAnimationsEnabled={isAnimationEnabled}
+      isHoverable
+      className={{
+        row: 'hover:!bg-darkGray-3 cursor-pointer',
+      }}
+      keys={list as string[]}
+      data={tokens}
+      animation={{
+        first: animations.table.flashAndShake as unknown as Variants,
+      }}
+      columns={columns}
+      reachedEndOfList={dataRanedOut}
+      $isDataRanedOut={$isEndReached}
+      rowsCount={30}
+      additionalInfo={{
+        rateUsd: rate,
+      }}
+    />
+  );
+};

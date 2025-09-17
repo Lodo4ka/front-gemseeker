@@ -22,7 +22,6 @@ import { LoadedData } from 'shared/ui/loaded-data';
 import { useMemo } from 'react';
 import { $rate } from 'features/exchange-rate';
 import { AnimationWrapper } from 'shared/ui/update-wrapper';
-import tokenImage from 'app/styles/Memescope/Memescope/image.png';
 
 type TokenMarketProps = {
   className?: string;
@@ -56,7 +55,13 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
   }, [token]);
 
   const mcap = useMemo(() => token.mcap * rate, [dopInfo, token.mcap]);
-  const currentDopInfo = useMemo(() => dopInfo?.[token.address], [dopInfo, token.address]);
+  const currentDopInfo = useMemo(() => {
+    const customInputFieldMetaInfo = dopInfo?.[token.address];
+    if (customInputFieldMetaInfo) {
+      return customInputFieldMetaInfo;
+    }
+    return Object.values(dopInfo)[0];
+  }, [dopInfo, token.address]);
 
   return (
     <AnimationWrapper
@@ -80,7 +85,7 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
       />
       <div className="hidden h-full flex-col items-center justify-between md:flex">
         <Avatar
-          url={tokenImage}
+          url={pinataUrl(token.photo_hash) ?? ''}
           progress={token.bounding_curve}
           isMigrate={token.trade_finished}
           play={token.is_streaming}
@@ -117,7 +122,7 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
             <div className="flex w-full items-center justify-between">
               <div className="xs:gap-2 flex items-center gap-[6px]">
                 <Typography
-                  className="xs:!gap-2 max-w-[160px] !gap-[6px] truncate text-white max-md:!gap-1 max-md:!text-[12px]"
+                  className="xs:!gap-2 max-w-[160px] !gap-[6px] truncate !text-white max-md:!gap-1 max-md:!text-[12px]"
                   color="secondary"
                   size="subheadline2"
                   icon={{ name: 'dot', size: 4, position: 'right' }}>
@@ -234,7 +239,7 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
                 {typeof currentDopInfo?.insiders === 'number' &&
                   `${formatter.number.round(currentDopInfo.insiders, 1)}%`}
                 {typeof currentDopInfo?.insiders != 'number' && <Skeleton isLoading className="h-5 w-6" />}
-                {`${formatter.number.round(currentDopInfo.insiders, 1)}%`}
+                {`${formatter.number.round(currentDopInfo?.insiders ?? 0, 1)}%`}
                 {typeof currentDopInfo?.insiders != 'number' && <Skeleton isLoading className="h-5 w-6" />}
               </Typography>
               {token.is_streaming && (

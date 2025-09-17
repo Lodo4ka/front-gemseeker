@@ -5,12 +5,13 @@ import { HashTable, TableFallback } from 'shared/ui/table';
 import { routes } from 'shared/config/router';
 
 import { $list, dataRanedOut, $isEndReached, $tokens } from '../../model';
-import { columns } from '../table';
+import { useColumns } from '../table';
 import { ListWithPagination } from 'shared/ui/list-with-pagination';
 import { $isChecked } from 'features/toggle-view';
 import { Token, TokenMarket, TokenMarketFallback } from 'entities/token';
 import { animations } from 'shared/config/animations';
 import { $isAnimationsEnabled } from 'features/toggle-animations';
+import type { Variants } from 'framer-motion';
 
 export const ContentMarket = memo(() => {
   const isAnimationEnabled = useUnit($isAnimationsEnabled);
@@ -33,9 +34,9 @@ export const ContentMarket = memo(() => {
         keys={list}
         data={tokens}
         animation={{
-          first: animations.table.flashAndShake,
+          first: animations.table.flashAndShake as unknown as Variants,
         }}
-        columns={columns}
+        columns={useColumns()}
         reachedEndOfList={dataRanedOut}
         $isDataRanedOut={$isEndReached}
         rowsCount={30}
