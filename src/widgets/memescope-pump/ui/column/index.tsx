@@ -31,7 +31,6 @@ export const Column = ({ idx }: ColumnProps) => {
     <div className="flex w-full flex-col gap-[12px]">
       <div className="flex w-full justify-between gap-[5px]">
         <ColumnTitle idx={idx} />
-
         <Button
           theme="outline"
           className={{
@@ -59,7 +58,6 @@ export const Column = ({ idx }: ColumnProps) => {
           Filters
         </Button>
       </div>
-
       <div className="flex w-full flex-col rounded-xl">
         <ContentMarket />
       </div>

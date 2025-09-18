@@ -29,7 +29,10 @@ export const QuickBuyButton = ({ token, className }: QuickBuyButtonProps) => {
     <Button
       onClick={handleBuy}
       theme="quaternary"
-      className={{ button: clsx('rounded-[6px] !bg-[#2C3242] !py-2 pr-3 pl-2 text-[12px]', className) }}
+      className={{ button: clsx('!bg-[] rounded-[6px] !py-2 pr-3 pl-2 text-[12px]', className) }}
+      style={{
+        background: `var(--color-${isBuy ? 'green' : 'red'}-gradient)`,
+      }}
       icon={{ name: 'energy', size: 16, position: 'left' }}
       disabled={isProcessingTx === token?.address}
       isLoaderIcon={isProcessingTx === token?.address}>
