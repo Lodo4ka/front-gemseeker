@@ -1,5 +1,3 @@
-import { Tabs } from 'shared/ui/tabs';
-import { InputQuickBuy } from 'features/input-quick-buy';
 import { Platform, platformVariant } from 'pages/new-pairs/ui/platform';
 import { useState } from 'react';
 import { NewPairsMarket } from 'widgets/new-pairs/ui/index.tsx';
@@ -7,18 +5,7 @@ import { HeadPause } from 'shared/ui/head-pause';
 import { NewPairsNewPair } from './NewPairsNewPair';
 import { NewPairsFilter } from 'widgets/new-pairs-filter/ui';
 
-const tabs = [
-  {
-    name: 'Dashboard',
-    symbol: 'dashboard',
-  },
-  {
-    name: 'New Pair',
-    symbol: 'new_pair',
-  },
-];
-
-export const NewPairsRoot = () => {
+export const NewPairsPage = () => {
   const [activeTab, setActiveTab] = useState<platformVariant>('dashboard');
   return (
     <div className="flex w-full flex-col">

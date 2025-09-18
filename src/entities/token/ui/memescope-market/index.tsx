@@ -91,10 +91,6 @@ export const MemescopeMarket = ({ className, token }: TokenMarketProps) => {
             text: 'hidden md:flex',
           }}
         />
-
-        {/* <Typography className="text-nowrap" size="captain1" color="green">
-          MC: ${formatter.number.formatSmallNumber(mcap)}
-        </Typography> */}
       </div>
 
       <div className="flex w-full flex-col gap-3 overflow-x-hidden">
@@ -148,7 +144,7 @@ export const MemescopeMarket = ({ className, token }: TokenMarketProps) => {
                 )}
               </div>
 
-              <QuickBuyButton token={token} className="relative z-1" />
+              <QuickBuyButton token={token} className="relative z-1 !bg-[rgb(44,50,66)]" bgColor="rgb(44,50,66)" />
             </div>
             <div className="flex items-center gap-1">
               <CopyAddress address={token.address} copied={copied} className={{ text: 'relative z-1 !gap-1' }} />

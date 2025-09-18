@@ -10,6 +10,7 @@ import { $rate } from 'features/exchange-rate';
 import { dataRanedOut } from 'widgets/markets/model';
 import { $isChecked } from 'features/toggle-view';
 import { ListWithPagination } from 'shared/ui/list-with-pagination';
+import { MemescopeMarket } from 'entities/token/ui/memescope-market';
 
 interface ColumnProps {
   idx: number;
@@ -17,7 +18,7 @@ interface ColumnProps {
 
 export const Column = ({ idx }: ColumnProps) => {
   const [openModal, closeModal] = useUnit([modalsStore.openModal, modalsStore.closeModal]);
-  const [list, rate, isViewTable] = useUnit([$list, $rate, $isChecked]);
+  const [list] = useUnit([$list, $rate, $isChecked]);
   const tokens = useUnit($tokens);
 
   const FILTER_MODAL_ID = 'memescope_filter_panel';
@@ -81,7 +82,7 @@ export const Column = ({ idx }: ColumnProps) => {
           renderItem={(id) => {
             const token = tokens[id];
             if (!token) return null;
-            return <TokenMarket token={token} />;
+            return <MemescopeMarket token={token} />;
           }}
         />
       </div>

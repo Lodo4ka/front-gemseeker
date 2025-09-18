@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useUnit } from 'effector-react';
-
+import styles from './style.module.css';
 import { $isProcessingTx, startedTx } from '../../model';
 import { Button } from 'shared/ui/button';
 import { $isBuyQuick } from 'entities/token';
@@ -11,9 +11,10 @@ import { TokensListTokenResponse } from 'shared/api/queries/token/tokens-factory
 interface QuickBuyButtonProps {
   token?: TokensListTokenResponse[0];
   className?: string;
+  bgColor?: string;
 }
 
-export const QuickBuyButton = ({ token, className }: QuickBuyButtonProps) => {
+export const QuickBuyButton = ({ token, className, bgColor }: QuickBuyButtonProps) => {
   const [amount, startTx] = useUnit([$amount, startedTx]);
   const [isProcessingTx, isBuy, showToast] = useUnit([$isProcessingTx, $isBuyQuick, showToastFx]);
 
@@ -29,9 +30,11 @@ export const QuickBuyButton = ({ token, className }: QuickBuyButtonProps) => {
     <Button
       onClick={handleBuy}
       theme="quaternary"
-      className={{ button: clsx('!bg-[] rounded-[6px] !py-2 pr-3 pl-2 text-[12px]', className) }}
+      className={{
+        button: clsx('!bg-[] rounded-[6px] !py-2 pr-3 pl-2 text-[12px]', isBuy ? styles.green : styles.red, className),
+      }}
       style={{
-        background: `var(--color-${isBuy ? 'green' : 'red'}-gradient)`,
+        background: bgColor,
       }}
       icon={{ name: 'energy', size: 16, position: 'left' }}
       disabled={isProcessingTx === token?.address}

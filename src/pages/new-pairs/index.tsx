@@ -2,14 +2,13 @@ import { authenticatedRoute, currentRoute } from './model';
 import { Suspense } from 'react';
 import { createRouteView } from 'atomic-router-react';
 import { SoonPage } from 'pages/not-found';
-import { NewPairsRoot } from 'pages/new-pairs/root.tsx';
-// const MemescopePage = namedLazy(async () => await import('./ui'), 'MemescopePage');
+import { NewPairsPage } from 'pages/new-pairs/NewPairsPage';
 
 const NewPairsRouteView = createRouteView({
   route: authenticatedRoute,
   view: () => (
     <Suspense fallback={<SoonPage />}>
-      <NewPairsRoot />
+      <NewPairsPage />
     </Suspense>
   ),
   otherwise: () => <SoonPage />,
