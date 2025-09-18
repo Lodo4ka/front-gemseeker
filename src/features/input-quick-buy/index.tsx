@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Typography } from 'shared/ui/typography';
 import { Input } from 'shared/ui/input';
+import clsx from 'clsx';
 
 type Props = {
   value?: string;
   onChange?: (v: string) => void;
+  className?: string;
 };
 
-export const InputQuickBuy = ({ value = '', onChange }: Props) => {
+export const InputQuickBuy = ({ value = '', onChange, className }: Props) => {
   const [local, setLocal] = useState<string>(value);
   const [isUsd, setIsUsd] = useState<boolean>(true);
 
@@ -17,7 +19,11 @@ export const InputQuickBuy = ({ value = '', onChange }: Props) => {
   };
 
   return (
-    <div className="border-separator flex h-[36px] items-center gap-3 rounded-lg bg-[rgb(34,40,53)] p-[2px]">
+    <div
+      className={clsx(
+        'border-separator flex h-[36px] items-center gap-3 rounded-lg bg-[rgb(34,40,53)] p-[2px]',
+        className,
+      )}>
       <Typography size="subheadline2" className="text-primary" icon={{ name: 'energy', position: 'left', size: 16 }}>
         Buy
       </Typography>

@@ -56,6 +56,7 @@ export const icons = {
   click: svgLazy(() => import('./assets/click.svg')),
   lock: svgLazy(() => import('./assets/lock.svg')),
   star: svgLazy(() => import('./assets/star.svg')),
+  star_secondary: svgLazy(() => import('./assets/star_secondary.svg')),
   star_outlined: svgLazy(() => import('./assets/star_outlined.svg')),
   avatar: svgLazy(() => import('./assets/avatar.svg')),
   create: svgLazy(() => import('./assets/create.svg')),
