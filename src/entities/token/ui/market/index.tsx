@@ -22,6 +22,7 @@ import { LoadedData } from 'shared/ui/loaded-data';
 import { useMemo } from 'react';
 import { $rate } from 'features/exchange-rate';
 import { AnimationWrapper } from 'shared/ui/update-wrapper';
+import { Progress } from '../components/progress';
 
 type TokenMarketProps = {
   className?: string;
@@ -154,6 +155,20 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
 
               <QuickBuyButton token={token} className="relative z-1" />
             </div>
+            <div className="flex items-center gap-2">
+              <Typography size="subheadline2" className="max-md:!text-[12px]" weight="regular">
+                {token.symbol}
+              </Typography>
+              <Typography className="flex text-nowrap" size="captain1" color="green">
+                MC: ${formatter.number.uiDefault(mcap)}
+              </Typography>
+              <Progress
+                prev_ath={token.prev_ath}
+                current={token.mcap}
+                lastTxTimestamp={token.last_tx_timestamp}
+                ath={token.ath}
+              />
+            </div>
 
             <div className="flex items-center justify-between"></div>
             <div className="flex items-center gap-1">
@@ -238,8 +253,6 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
                 color="secondary">
                 {typeof currentDopInfo?.insiders === 'number' &&
                   `${formatter.number.round(currentDopInfo.insiders, 1)}%`}
-                {typeof currentDopInfo?.insiders != 'number' && <Skeleton isLoading className="h-5 w-6" />}
-                {`${formatter.number.round(currentDopInfo?.insiders ?? 0, 1)}%`}
                 {typeof currentDopInfo?.insiders != 'number' && <Skeleton isLoading className="h-5 w-6" />}
               </Typography>
               {token.is_streaming && (

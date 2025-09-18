@@ -146,7 +146,7 @@ const Rocket = ({ rocket, mcapUsd }: RocketProps) => {
             </div>
             <div className="flex items-center gap-2 max-md:!mb-1 md:-mt-[6px]">
               <Typography size="subheadline2" className="max-md:!text-[12px]" weight="regular">
-                {rocket?.symbol}
+                {rocket?.symbol} aaa
               </Typography>
               <Typography size="subheadline2" className="text-nowrap" color="green">
                 MC: ${formatter.number.uiDefault(mcapUsd)}
