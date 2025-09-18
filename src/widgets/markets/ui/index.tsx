@@ -10,6 +10,7 @@ import { onLoadedFirst } from '../model';
 import { LoadedData } from 'shared/ui/loaded-data';
 import { HeadPause } from 'shared/ui/head-pause';
 import { ContentMarket } from './content';
+import { TokenMarket } from 'entities/token';
 
 export const Markets = () => {
   const publicKey = useUnit($publicKey);
@@ -47,7 +48,7 @@ export const Markets = () => {
         </div>
       </div>
 
-      <ContentMarket />
+      <ContentMarket TokenMarket={TokenMarket} />
     </div>
   );
 };

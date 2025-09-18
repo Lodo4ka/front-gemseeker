@@ -25,13 +25,12 @@ export const NewPairsRoot = () => {
       <HeadPause className="mb-[16px]" title="New Pairs" pauseVariant="market" iconName="newPairs" />
       <Platform className="mb-[16px]" activePlatform={activeTab} changePlatform={setActiveTab} />
       <div className="relative z-2 flex w-full flex-col gap-4">
-        <div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <div className="mb-[20px] flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <NewPairsFilter />
         </div>
       </div>
       {activeTab === 'dashboard' && <NewPairsMarket />}
       {activeTab === 'new_pair' && <NewPairsNewPair />}
-      {/* <NewPairsMarket />, <NewPairsNewPair /> */}
     </div>
   );
 };

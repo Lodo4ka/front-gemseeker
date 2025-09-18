@@ -1,34 +1,28 @@
-import { useEffect, useState, useRef } from 'react';
+import { TokenMarketProps } from '../market';
 import { useUnit } from 'effector-react';
+import { $tokensDopInfo } from '../../model/dop-info';
+import { $rate } from 'features/exchange-rate';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import { TokensListTokenResponse } from 'shared/api/queries/token/tokens-factory';
+import { AnimationWrapper } from 'shared/ui/update-wrapper';
 import clsx from 'clsx';
 import { Link } from 'atomic-router-react';
-
-import { Button } from 'shared/ui/button';
-import { Icon } from 'shared/ui/icon';
-import { Typography } from 'shared/ui/typography';
-import { copied } from '../../model';
-import { loadedToken, $tokensDopInfo } from '../../model/dop-info';
-import { Stats, Avatar } from '..';
-import { CopyAddress } from 'features/copy-address';
-import { Skeleton } from 'shared/ui/skeleton';
-import { QuickBuyButton } from 'features/quick-buy';
-import { TokensListTokenResponse } from 'shared/api/queries/token/tokens-factory';
-import { formatter } from 'shared/lib/formatter';
 import { routes } from 'shared/config/router';
-import s from './style.module.css';
-import { pinataUrl } from 'shared/lib/base-url';
 import { LoadedData } from 'shared/ui/loaded-data';
-import { useMemo } from 'react';
-import { $rate } from 'features/exchange-rate';
-import { AnimationWrapper } from 'shared/ui/update-wrapper';
-import { Progress } from '../components/progress';
+import { loadedToken } from '../../model/dop-info';
+import { Avatar, Stats } from '../components';
+import { pinataUrl } from 'shared/lib/base-url';
+import { Typography } from 'shared/ui/typography';
+import { formatter } from 'shared/lib/formatter';
+import { Button } from 'shared/ui/button';
+import { Skeleton } from 'shared/ui/skeleton';
+import { Icon } from 'shared/ui/icon';
+import s from './style.module.css';
+import { QuickBuyButton } from 'features/quick-buy';
+import { CopyAddress } from 'features/copy-address';
+import { copied } from '../../model';
 
-export type TokenMarketProps = {
-  className?: string;
-  token: TokensListTokenResponse[0];
-};
-
-export const TokenMarket = ({ className, token }: TokenMarketProps) => {
+export const MemescopeMarket = ({ className, token }: TokenMarketProps) => {
   const [dopInfo, rate] = useUnit([$tokensDopInfo, $rate]);
   const [isUpdated, setIsUpdated] = useState(false);
   const prevTokenRef = useRef<TokensListTokenResponse[0] | null>(null);
@@ -53,7 +47,6 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
 
     prevTokenRef.current = token;
   }, [token]);
-
   const mcap = useMemo(() => token.mcap * rate, [dopInfo, token.mcap]);
   const currentDopInfo = useMemo(() => {
     const customInputFieldMetaInfo = dopInfo?.[token.address];
@@ -119,8 +112,11 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
             }}
           />
           <div className="flex w-full flex-col gap-[6px]">
-            <div className="flex w-full items-center justify-between">
+            <div className="-mb-[6px] flex w-full items-center justify-between">
               <div className="xs:gap-2 flex items-center gap-[6px]">
+                <Typography size="subheadline2" className="max-md:!text-[12px]" weight="regular">
+                  {token.symbol}
+                </Typography>
                 <Typography
                   className="xs:!gap-2 max-w-[160px] !gap-[6px] truncate !text-white max-md:!gap-1 max-md:!text-[12px]"
                   color="secondary"
@@ -154,22 +150,6 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
 
               <QuickBuyButton token={token} className="relative z-1" />
             </div>
-            <div className="flex items-center gap-2">
-              <Typography size="subheadline2" className="max-md:!text-[12px]" weight="regular">
-                {token.symbol}
-              </Typography>
-              <Typography className="flex text-nowrap" size="captain1" color="green">
-                MC: ${formatter.number.uiDefault(mcap)}
-              </Typography>
-              <Progress
-                prev_ath={token.prev_ath}
-                current={token.mcap}
-                lastTxTimestamp={token.last_tx_timestamp}
-                ath={token.ath}
-              />
-            </div>
-
-            <div className="flex items-center justify-between"></div>
             <div className="flex items-center gap-1">
               <CopyAddress address={token.address} copied={copied} className={{ text: 'relative z-1 !gap-1' }} />
 
@@ -270,6 +250,10 @@ export const TokenMarket = ({ className, token }: TokenMarketProps) => {
             count_tx={token.alltime_buy_txes + token.alltime_sell_txes}
             username={token.created_by.user_nickname}
           />
+
+          <Typography className="flex text-nowrap" size="captain1" color="green">
+            MC: ${formatter.number.uiDefault(mcap)}
+          </Typography>
         </div>
       </div>
     </AnimationWrapper>

@@ -8,6 +8,7 @@ export type PauseVariant =
   | 'streams'
   | 'pump_new_creation'
   | 'pump_completing'
-  | 'pump_completed';
+  | 'pump_completed'
+  | 'trending';
 
 export type PauseState = PauseVariant | null;

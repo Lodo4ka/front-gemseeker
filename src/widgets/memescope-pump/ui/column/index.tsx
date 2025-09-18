@@ -5,6 +5,7 @@ import { modalsStore, type ModalId } from 'shared/lib/modal';
 import { ModalDefault } from 'shared/ui/modal';
 import { MemescopeFilter } from 'features/memescope-filter/ui';
 import { ContentMarket } from 'widgets/markets/ui/content/index.tsx';
+import { MemescopeMarket } from 'entities/token/ui/memescope-market';
 
 interface ColumnProps {
   idx: number;
@@ -59,7 +60,7 @@ export const Column = ({ idx }: ColumnProps) => {
         </Button>
       </div>
       <div className="flex w-full flex-col rounded-xl">
-        <ContentMarket />
+        <ContentMarket TokenMarket={MemescopeMarket} />
       </div>
     </div>
   );

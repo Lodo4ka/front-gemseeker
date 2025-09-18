@@ -23,7 +23,7 @@ export const MemescopePage = () => {
       <Platform />
       <Tabs
         className={{
-          wrapper: 'mt-[16px]',
+          wrapper: 'mt-[16px] gap-[24px]',
         }}
         controllers={tabs.map((tab, idx) => ({
           children: idx === 0 ? activePlatform : tab.name,

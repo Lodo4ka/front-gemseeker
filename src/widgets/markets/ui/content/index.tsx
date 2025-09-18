@@ -1,19 +1,19 @@
 import { useUnit } from 'effector-react';
 import { memo } from 'react';
 import { $rate } from 'features/exchange-rate';
-import { HashTable, TableFallback } from 'shared/ui/table';
+import { HashTable } from 'shared/ui/table';
 import { routes } from 'shared/config/router';
-
 import { $list, dataRanedOut, $isEndReached, $tokens } from '../../model';
 import { useColumns } from '../table';
 import { ListWithPagination } from 'shared/ui/list-with-pagination';
 import { $isChecked } from 'features/toggle-view';
-import { Token, TokenMarket, TokenMarketFallback } from 'entities/token';
+import { Token, TokenMarketFallback } from 'entities/token';
 import { animations } from 'shared/config/animations';
 import { $isAnimationsEnabled } from 'features/toggle-animations';
 import type { Variants } from 'framer-motion';
+import { MarketsFallback } from './MarketsFallback';
 
-export const ContentMarket = memo(() => {
+export const ContentMarket = memo(({ TokenMarket }: { TokenMarket: React.ElementType }) => {
   const isAnimationEnabled = useUnit($isAnimationsEnabled);
   const tokens = useUnit($tokens);
   const [list, rate, isViewTable] = useUnit([$list, $rate, $isChecked]);
@@ -65,23 +65,3 @@ export const ContentMarket = memo(() => {
     />
   );
 });
-
-interface MarketsFallbackProps {
-  isViewTable: boolean;
-}
-
-const MarketsFallback = ({ isViewTable }: MarketsFallbackProps) => {
-  if (isViewTable) {
-    return <TableFallback rowsCount={30} columnsCount={9} />;
-  }
-
-  return (
-    <div className="xs:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] grid w-full grid-cols-[repeat(auto-fill,minmax(100%,1fr))] gap-[10px]">
-      {Array(14)
-        .fill(null)
-        .map((_, index) => (
-          <TokenMarketFallback key={index} />
-        ))}
-    </div>
-  );
-};

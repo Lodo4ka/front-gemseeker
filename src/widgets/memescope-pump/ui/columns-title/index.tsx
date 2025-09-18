@@ -38,7 +38,7 @@ export const ColumnTitle = ({ idx }: ColumnTitleProps) => {
         color="secondary"
         size="subheadline1"
         icon={{ name: columnsProps[idx]?.icon ?? 'folder', position: 'left', size: 18 }}>
-        {columnsProps[idx]?.text}
+        <span className="ml-[8px]">{columnsProps[idx]?.text}</span>
       </Typography>
 
       {isPause === columnsProps[idx]?.variant && (
