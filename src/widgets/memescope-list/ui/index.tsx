@@ -18,7 +18,7 @@ export const MemescopeList = () => {
       layout="grid"
       list={list}
       className={{
-        list: 'xs:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] grid w-full grid-cols-[repeat(auto-fill,minmax(100%,1fr))] gap-[10px]',
+        list: 'xs:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] grid w-full grid-cols-[repeat(auto-fill,minmax(100%,1fr))] gap-x-[10px]',
       }}
       onLoaded={onLoadedFirst}
       $isDataRanedOut={$isEndReached}

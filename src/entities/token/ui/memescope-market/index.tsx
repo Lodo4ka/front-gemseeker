@@ -61,7 +61,10 @@ export const MemescopeMarket = ({ className, token }: TokenMarketProps) => {
       style={{
         background: token.is_streaming ? 'var(--color-red-gradient-dark)' : undefined,
       }}
-      className={clsx('bg-darkGray-1 hover:bg-darkGray-3 flex items-center rounded-xl p-2 md:gap-4 md:p-4', className)}
+      className={clsx(
+        'bg-darkGray-1 hover:bg-darkGray-3 border-separator flex items-center !rounded-none border-b p-2 md:gap-4 md:p-4',
+        className,
+      )}
       isUpdated={isUpdated}
       pauseVariant="market">
       <Link to={routes.token} params={{ address: token.address }} className="absolute inset-0 z-0 h-full w-full" />

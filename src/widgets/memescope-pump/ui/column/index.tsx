@@ -14,8 +14,8 @@ export const Column = ({ idx }: ColumnProps) => {
         <ColumnTitle idx={idx} />
         <FiltersButton />
       </div>
-      <div className="flex w-full flex-col rounded-xl">
-        <ContentMarket TokenMarket={MemescopeMarket} />
+      <div className="flex w-full flex-col">
+        <ContentMarket TokenMarket={MemescopeMarket} className="!gap-y-0" />
       </div>
     </div>
   );
